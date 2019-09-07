@@ -57,14 +57,14 @@ def select_bus_stops(data):
     for name,group in df:
         if len(group)>3:
             for i in range(0,3):
-                final_bus_stops.append(list(group.iloc[i,:].values))
+                final_bus_stops.append(list(group.iloc[i, :].values))
 
     final_df = pd.DataFrame(final_bus_stops,
-                            columns=['Stop ID','Stop Latitude','Stop Longitude','Stop Name','Suburb','Location'])
+                            columns=['Stop ID', 'Stop Latitude', 'Stop Longitude', 'Stop Name', 'Suburb', 'Location'])
     return final_df
 
 
-data = pd.read_csv('Bus_Stops.csv')
+data = pd.read_csv('./Data/Bus_Stops.csv')
 final_df = select_bus_stops(data)
 print(final_df.head())
 min_distance_stop = []
@@ -74,12 +74,12 @@ for index, row in final_df.iterrows():
 final_df['distance_next_stop']=pd.Series(min_distance_stop)
 print(final_df.head())
 
-suburb_desc=pd.read_csv('suburb_desc.csv')
+suburb_desc = pd.read_csv('./Data/suburb_desc.csv')
 print(suburb_desc['input_string'].values)
 distance_from_suburb_center = list()
 for index,row in final_df.iterrows():
     if row['Suburb'] in suburb_desc['input_string'].values:
-        suburb_data=suburb_desc.loc[suburb_desc['input_string'] == row['Suburb']]
+        suburb_data = suburb_desc.loc[suburb_desc['input_string'] == row['Suburb']]
         distance_from_suburb_center.append(calculate_distance_from_suburb_center(suburb_data,row))
     else:
         distance_from_suburb_center.append(0)

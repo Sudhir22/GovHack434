@@ -8,7 +8,7 @@ from apiclient import discovery
 
 # ------------------ CONFIGURATION -------------------------------
 
-API_KEY = 'AIzaSyCtXVrgFImIZ_psK2XDkc0ilPJLWzOt5Wo'
+API_KEY = None
 R = 6373.0
 
 # ----------------------------------------------------------------
@@ -26,6 +26,7 @@ def get_suburb(lat, lng):
 
 
 def get_distance_next_stop(lat1, lng1, lat2, lng2):
+    # TODO: fix this
     min_distance = sys.maxsize
     dlat = lat2 - lat1
     dlon = lng2 - lng1
