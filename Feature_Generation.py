@@ -71,7 +71,7 @@ min_distance_stop = []
 for index, row in final_df.iterrows():
     min_distance_stop.append(calculate_distance_to_next_stop(data, row))
 
-final_df['distance_next_stop']=pd.Series(min_distance_stop)
+final_df['distance_next_stop'] = pd.Series(min_distance_stop)
 print(final_df.head())
 
 suburb_desc = pd.read_csv('./Data/suburb_desc.csv')

@@ -7,7 +7,7 @@ from math import sin, cos, sqrt, atan2, radians
 from apiclient import discovery
 
 # ------------------ CONFIGURATION -------------------------------
-
+# Put credential keys in the string format
 API_KEY = None
 R = 6373.0
 
@@ -53,11 +53,14 @@ def get_distance_suburb_centre(lat1, lng1, lat2, lng2):
 
 
 # Test to get suburb information
-test_lat = -35.2713868
-test_lng = 149.1292744
+# test_lat = -35.2713868
+# test_lng = 149.1292744
+#
+# y = get_suburb(test_lat, test_lng)
+# print(y)
 
-y = get_suburb(test_lat, test_lng)
-print(y)
+file_path = '../Data/data.csv'
+df = pd.read_csv(file_path)
 
 
 
