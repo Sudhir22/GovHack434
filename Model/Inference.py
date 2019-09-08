@@ -80,7 +80,7 @@ def calculate_distance_from_suburb_center(suburb_data, bus_stop_data):
     return min_distance
 
 
-file_path = '../Data/data.csv'
+file_path = './Data/data.csv'
 df = pd.read_csv(file_path)
 cols = list(['Stop Latitude','Stop Longitude','num_bus_stop', 'population_density', 'distance_next_stop',
              'distance_suburb_center', 'Label'])
