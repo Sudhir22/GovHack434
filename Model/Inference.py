@@ -80,7 +80,7 @@ file_path = '../Data/bus_stop_data.csv'
 df = pd.read_csv(file_path)
 
 print(df.loc[1, :])
-print(df.loc[470, :])
+print(df.loc[318, :])
 busstop_data_path = '../Data/Bus_Stops.csv'
 busstop_df = pd.read_csv(busstop_data_path)
 
@@ -92,7 +92,7 @@ print(dist_next_stop[0])
 
 df['distance_next_stop'] = pd.Series(dist_next_stop)
 print(df.loc[1, :])
-print(df.loc[470, :])
+print(df.loc[318, :])
 
 suburb_data_path = '../Data/suburb_desc.csv'
 suburb_desc = pd.read_csv(suburb_data_path)
@@ -107,7 +107,7 @@ for index, row in df.iterrows():
 
 df['distance_suburb_center'] = pd.Series(dist_suburb_center)
 print(df.loc[1, :])
-print(df.loc[470, :])
+print(df.loc[318, :])
 # df.to_csv('../Data/bus_stop_data_v2.csv' , encoding='utf-8')
 
 
