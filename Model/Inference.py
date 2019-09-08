@@ -1,5 +1,9 @@
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.utils import shuffle
+from sklearn.metrics import accuracy_score
+
 import pandas as pd
 import numpy as np
 
@@ -76,38 +80,74 @@ def calculate_distance_from_suburb_center(suburb_data, bus_stop_data):
     return min_distance
 
 
-file_path = '../Data/bus_stop_data.csv'
+file_path = '../Data/data.csv'
 df = pd.read_csv(file_path)
+cols = list(['Stop Latitude','Stop Longitude','num_bus_stop', 'population_density', 'distance_next_stop',
+             'distance_suburb_center', 'Label'])
+df = pd.DataFrame(df,
+                  columns=cols)
 
-print(df.loc[1, :])
-print(df.loc[318, :])
-busstop_data_path = '../Data/Bus_Stops.csv'
-busstop_df = pd.read_csv(busstop_data_path)
+scaler = StandardScaler()
 
-dist_next_stop = []
 
-for index, row in df.iterrows():
-    dist_next_stop.append(calculate_distance_to_next_stop(df, row))
-print(dist_next_stop[0])
+def scaleCols(df, cols_to_scale):
+    """
+    idea from
+    https://stackoverflow.com/questions/24645153/pandas-dataframe-columns-scaling-with-sklearn/36475297
+    params: df: Pandas dataframe, list of pandas columns to transform
+    return: dataframe with normalised value for each column.
+    """
+    for col in cols_to_scale:
+        df[col] = scaler.fit_transform(df[col].values.reshape(-1,1))
+    return df
 
-df['distance_next_stop'] = pd.Series(dist_next_stop)
-print(df.loc[1, :])
-print(df.loc[318, :])
 
-suburb_data_path = '../Data/suburb_desc.csv'
-suburb_desc = pd.read_csv(suburb_data_path)
+np.random.seed(3)
 
-dist_suburb_center = []
-for index, row in df.iterrows():
-    if row['Suburb'] in suburb_desc['input_string'].values:
-        suburb_data = suburb_desc.loc[suburb_desc['input_string'] == row['Suburb']]
-        dist_suburb_center.append(calculate_distance_from_suburb_center(suburb_data,row))
-    else:
-        dist_suburb_center.append(0)
 
-df['distance_suburb_center'] = pd.Series(dist_suburb_center)
-print(df.loc[1, :])
-print(df.loc[318, :])
-df.to_csv('../Data/data.csv' , encoding='utf-8')
+df_normalised = scaleCols(df, cols[2:7])
+df_normalised = shuffle(df_normalised)
+
+msk = np.random.rand(len(df_normalised)) < 0.7  # split train and test set
+train_data = df_normalised[msk]
+test_data = df_normalised[~msk]
+
+n_features = train_data.shape[1] - 1
+
+train_input = train_data.iloc[:, 2:n_features]
+train_target = train_data.iloc[:, n_features]
+test_input = test_data.iloc[:, 2:n_features]
+test_target = test_data.iloc[:, n_features]
+
+# print(train_input.shape)
+# print(train_target.shape)
+
+lr = LogisticRegression(solver='lbfgs')
+
+lr.fit(train_input, train_target)
+
+test_predict = lr.predict(test_input)
+
+acc = accuracy_score(test_target, test_predict)
+
+print('---------- Model Performance ----------')
+print('accuracy:{}'.format(acc))
+
+print('---------- Bus Stop Detail ----------')
+print(test_data.iloc[0, :])
+print('---------- Should we build a bus stop according to the model? ----------')
+print(test_predict[0])
+
+def print_stdout():
+    print('---------- Model Performance ----------')
+    print('accuracy:{}'.format(acc))
+
+    print('---------- Bus Stop Detail ----------')
+    print(test_data.iloc[0, :])
+    print('---------- Should we build a bus stop according to the model? ----------')
+    print(test_predict[0])
+
+
+
 
 

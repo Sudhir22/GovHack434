@@ -48,7 +48,7 @@ def get_distance_next_stop(lat, lng, busstop_df):
         distance = R * c
         if distance != 0 and distance < min_distance:
             min_distance = distance
-            
+
     return min_distance
 
 
