@@ -1,4 +1,4 @@
-,Unnamed: 0,Unnamed: 0.1,Stop ID,Stop Latitude,Stop Longitude,Stop Name,Suburb,Location,distance_next_stop,distance_suburb_center,# of Bus Stops (in Suburbs),Population Density,Label
+,Unnamed: 0,Unnamed: 0.1,Stop ID,Stop Latitude,Stop Longitude,Stop Name,Suburb,Location,distance_next_stop,distance_suburb_center,num_bus_stop,population_density,Label
 0,0,0.0,8889,-35.288746,149.127365,COMMONWEALTH AV AFTER ALBERT HALL,ACTON,"(-35.288746, 149.127365)",0.05703826256804439,1.2600676827275812,0.008587041,0.526315789,1
 1,1,1.0,3486,-35.282188,149.120972,LIVERSIDGE ST AFTER GARRAN RD,ACTON,"(-35.282188, 149.120972)",0.0322451269765105,0.3352694407708384,0.008587041,0.526315789,1
 2,2,2.0,3487,-35.282471,149.120895,LIVERSIDGE AFTER ELLERY CR,ACTON,"(-35.282471, 149.120895)",0.0322451269765105,0.3615526648133217,0.008587041,0.526315789,1
