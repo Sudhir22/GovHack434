@@ -8,7 +8,24 @@
       <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <style>
         #map { height: 100% }
+        table {
+             font-family: arial, sans-serif;
+             border-collapse: collapse;
+             width: 100%;
+                }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+                }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+            }
+
     </style>
+
 
 </head>
 <body onload="load()">
@@ -17,10 +34,42 @@
 
      </div>
 
-    <div id="sec" style = "width: 900px; height: 200px">
-         The distance of the selected co-ordinate to the nearest  bus stop is {{distance}} km.
+    <h2>Bus Stop Detail</h2>
 
-     </div>
+<table>
+    <tr>
+    <td>Stop Latitude</td>
+    <td>{{test_data[0]}}</td>
+
+  </tr>
+  <tr>
+    <td>Stop Longitude</td>
+    <td>{{test_data[1]}}</td>
+
+  </tr>
+  <tr>
+    <td>num_bus_stop</td>
+    <td>{{test_data[2]}}</td>
+
+  </tr>
+  <tr>
+    <td>Population Density</td>
+    <td>{{test_data[3]}}</td>
+
+  </tr>
+  <tr>
+    <td>distance_next_stop</td>
+    <td>{{test_data[4]}}</td>
+
+  </tr>
+  <tr>
+    <td>distance_suburb_center</td>
+    <td>{{test_data[5]}}</td>
+
+  </tr>
+</table>
+
+    <h4>Our model predicts that we {{build_or_not}} the bus stop there.</h4>
 
      <form method="POST">
         <input id="one" name="text">
