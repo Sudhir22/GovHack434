@@ -138,6 +138,7 @@ print(test_data.iloc[0, :])
 print('---------- Should we build a bus stop according to the model? ----------')
 print(test_predict[0])
 
+
 def print_stdout():
     print('---------- Model Performance ----------')
     print('accuracy:{}'.format(acc))
