@@ -13,6 +13,12 @@ R = 6373.0
 
 # ----------------------------------------------------------------
 
+busstop_data_path = './Data/Bus_Stops.csv'
+busstop_df = pd.read_csv(busstop_data_path)
+
+suburb_data_path = './Data/suburb_desc.csv'
+suburb_df = pd.read_csv(suburb_data_path)
+
 
 def get_suburb(lat, lng):
     sub = ''
@@ -25,24 +31,32 @@ def get_suburb(lat, lng):
     return sub
 
 
-def get_distance_next_stop(lat1, lng1, lat2, lng2):
-    # TODO: fix this
+def get_distance_next_stop(lat, lng):
     min_distance = sys.maxsize
-    dlat = lat2 - lat1
-    dlon = lng2 - lng1
-    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    for index, row in busstop_df.iterrows():
+        lat = radians(lat)
+        lng = radians(lng)
+        lat1 = radians(row['Stop Latitude'])
+        lng1 = radians(row['Stop Longitude'])
 
-    distance = R * c
-    if distance != 0 and distance < min_distance:
-        min_distance = distance
+        dlat = lat1 - lat
+        dlon = lng1 - lng
+
+        a = sin(dlat / 2) ** 2 + cos(lat) * cos(lat1) * sin(dlon / 2) ** 2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+        distance = R * c
+        if distance != 0 and distance < min_distance:
+            min_distance = distance
+            
     return min_distance
 
 
-def get_distance_suburb_centre(lat1, lng1, lat2, lng2):
+def get_distance_suburb_centre(lat, lng):
     min_distance = sys.maxsize
-    dlat = lat2 - lat1
-    dlon = lng2 - lng1
+
+    dlat = lat - lat
+    dlon = lng - lng
     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
@@ -53,14 +67,12 @@ def get_distance_suburb_centre(lat1, lng1, lat2, lng2):
 
 
 # Test to get suburb information
-# test_lat = -35.2713868
-# test_lng = 149.1292744
-#
-# y = get_suburb(test_lat, test_lng)
-# print(y)
+test_lat = -35.1701
+test_lng = 149.125
 
-file_path = '../Data/data.csv'
-df = pd.read_csv(file_path)
+y = get_distance_next_stop(test_lat, test_lng)
+print(y)
+
 
 
 

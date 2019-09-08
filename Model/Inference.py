@@ -108,6 +108,6 @@ for index, row in df.iterrows():
 df['distance_suburb_center'] = pd.Series(dist_suburb_center)
 print(df.loc[1, :])
 print(df.loc[318, :])
-# df.to_csv('../Data/bus_stop_data_v2.csv' , encoding='utf-8')
+df.to_csv('../Data/data.csv' , encoding='utf-8')
 
 
