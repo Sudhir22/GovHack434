@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transport 2029</title>
+
+          <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+      <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <style>
+        #map { height: 100% }
+    </style>
+
+</head>
+<body onload="load()">
+     <div id="map" style = "width: 900px; height: 580px">
+
+     </div>
+
+     <form method="POST">
+        <input id="one" name="text">
+        <input type="submit">
+     </form>
+
+     <div id="sec" style = "width: 900px; height: 580px">
+
+     </div>
+    <script>
+
+
+    var map, newMarker, markerLocation;
+function load(){
+    // Initialize the map
+    // This variable map is inside the scope of the jQuery function.
+    // var map = L.map('map').setView([38.487, -75.641], 8);
+
+    // Now map reference the global map declared in the first line
+    //initialize the map
+    var mapOptions = {
+            center: [-35.282, 149.1286],
+            zoom: 10
+         }
+
+    map = new L.map('map', mapOptions);
+
+    var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+         // Adding layer to the map
+     map.addLayer(layer);
+    map.on('click', addMarker);
+}
+
+function addMarker(e){
+    // Add marker to map at click location; add popup window
+    var newMarker = new L.marker(e.latlng).addTo(map);
+    document.getElementById('one').value=e.latlng.lat+" "+e.latlng.lng;
+    //document.getElementById('sec').innerHTML=e.latlng.lat+" "+e.latlng.lng;
+
+}
+
+
+  </script>
+
+
+</body>
+</html>
