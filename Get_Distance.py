@@ -31,7 +31,7 @@ def get_suburb(lat, lng):
     return sub
 
 
-def get_distance_next_stop(lat, lng):
+def get_distance_next_stop(lat, lng, busstop_df):
     min_distance = sys.maxsize
     for index, row in busstop_df.iterrows():
         lat = radians(lat)
@@ -67,11 +67,12 @@ def get_distance_suburb_centre(lat, lng):
 
 
 # Test to get suburb information
-test_lat = -35.1701
-test_lng = 149.125
-
-y = get_distance_next_stop(test_lat, test_lng)
-print(y)
+# test_lat = -35.418312
+# test_lng = 149.11557
+#
+# y = get_distance_next_stop(test_lat, test_lng,busstop_df)
+# print(busstop_df.head())
+# print(y)
 
 
 
